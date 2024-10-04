@@ -28,3 +28,31 @@ resource "aws_subnet" "private_main" {
     Name      = "private_main"
   }
 }
+
+resource "aws_internet_gateway" "main" {
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    CreatedBy = "terraform"
+    Name      = "main"
+  }
+}
+
+resource "aws_route_table" "public_main" {
+  vpc_id = aws_vpc.main.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.main.id
+  }
+
+  tags = {
+    CreatedBy = "terraform"
+    Name      = "main"
+  }
+}
+
+# public subnetをroute tableに関連付ける
+resource "aws_route_table_association" "main" {
+  subnet_id      = aws_subnet.public_main.id
+  route_table_id = aws_route_table.public_main.id
+}
