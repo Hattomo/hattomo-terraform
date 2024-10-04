@@ -3,7 +3,9 @@ resource "aws_vpc" "main" {
 
   tags = {
     CreatedBy = "terraform"
+    Name      = "main"
   }
+
 }
 
 resource "aws_subnet" "public_main" {
@@ -13,6 +15,7 @@ resource "aws_subnet" "public_main" {
   availability_zone       = "us-east-1a"
   tags = {
     CreatedBy = "terraform"
+    Name      = "public_main"
   }
 }
 
@@ -22,5 +25,6 @@ resource "aws_subnet" "private_main" {
   availability_zone = "us-east-1a"
   tags = {
     CreatedBy = "terraform"
+    Name      = "private_main"
   }
 }
