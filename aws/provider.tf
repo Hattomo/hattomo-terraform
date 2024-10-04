@@ -6,6 +6,13 @@ terraform {
       version = ">= 5.69.0"
     }
   }
+  backend "s3" {
+    bucket  = "hattomo-main"
+    key     = "terraform/terraform.tfstate"
+    region  = "us-east-1"
+    profile = "hattomo"
+    encrypt = true
+  }
 }
 
 provider "aws" {
